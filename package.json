@@ -1,0 +1,19 @@
+{
+  "name": "sibcode2015",
+  "version": "0.0.1",
+  "author": "Andrey F. Kupreychik",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
+  "dependencies": {
+    "connect-busboy": "0.0.2",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.sib-soft.ru/sibcode2015/team16"
+  }
+}
