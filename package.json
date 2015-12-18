@@ -9,7 +9,11 @@
   "main": "server.js",
   "dependencies": {
     "connect-busboy": "0.0.2",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "libxmljs": "0.11.0",
+    "promise": "^7.0.4",
+    "underscore": "^1.8.3",
+    "xml2js": "^0.4.15"
   },
   "devDependencies": {},
   "repository": {
