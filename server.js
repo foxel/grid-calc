@@ -1,7 +1,7 @@
 var express = require('express');
 var busboy = require('connect-busboy');
-var fs = require('fs');
 var app = require('./lib/app');
+var path = require('path')
 
 var server = express();
 server.use(busboy());
@@ -12,8 +12,8 @@ server.get('/help', function (req, res) {
 
 server.post('/upload', app.upload);
 
-server.get('/doc\\d+', function (req, res) {
-    res.sendFile('./uploads/' + req.url + '.xml', {root: '.'});
+server.get('/download/doc\\d+', function (req, res) {
+    res.sendFile('./uploads/' + path.basename(req.url) + '.xml', {root: '.'});
 });
 
 var instance = server.listen(8080, function () {
