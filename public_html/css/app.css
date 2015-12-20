@@ -1,0 +1,7 @@
+td.data-cell {
+    cursor: pointer;
+}
+
+td.data-cell:hover {
+    background-color: #efffef;
+}

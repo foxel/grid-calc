@@ -12,7 +12,7 @@
             var maxColumnId = Math.max.apply(Math, [10].concat(_.map(sheet.cells, function(_val, col) { return app.columnToIndex(col)})));
         %>
 
-        <table class="table table-bordered table-condensed" data-sheet="<%=sheetId%>">
+        <table class="table table-bordered table-condensed" data-sheet="<%= sheetId%>" onselectstart="return false;">
             <thead><tr>
                 <th style="max-width: 30px;">#</th>
                 <% for (var colIdx = 1; colIdx <= maxColumnId; colIdx++) { %>
@@ -22,10 +22,10 @@
 
         <% for (var row = 1; row <= maxRowId; row++) { %>
             <tr>
-                <td><%=row%></td>
+                <td><%= row%></td>
             <% for (var colIdx = 1; colIdx <= maxColumnId; colIdx++) {
                 var col = app.indexToColumn(colIdx); %>
-                <td data-row="<%=row%>" data-col="<%=col%>"><%= (sheet.cells[col] && sheet.cells[col][row])
+                <td class="data-cell" data-row="<%= row%>" data-col="<%= col%>"><%= (sheet.cells[col] && sheet.cells[col][row])
                             ? app.encodeDisplayed(sheet.cells[col][row].computed)
                             : ''%></td>
             <% } %>
