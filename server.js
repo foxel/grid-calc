@@ -12,9 +12,7 @@ server.get('/help', function (req, res) {
 
 server.post('/upload', app.upload);
 
-server.get('/download/doc\\d+', function (req, res) {
-    res.sendFile('./uploads/' + path.basename(req.url) + '.xml', {root: '.'});
-});
+server.get('/download/doc\\d+', app.download);
 
 var instance = server.listen(8080, function () {
     var port = instance.address().port;
