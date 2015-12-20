@@ -13,11 +13,12 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <% if (typeof documentId != 'undefined') { %>
-                <li class="active"><i class="icon-file"></i><a href="/<%= documentId %>">#<%= documentId %></a></li>
+                <li class="active"><a href="/<%= documentId %>"><i class="glyphicon glyphicon-file"></i>#<%= documentId %></a></li>
+                <li ><a href="/download/<%= documentId %>"><i class="glyphicon glyphicon-download"></i> Download</a></li>
                 <% } %>
-                <li><a href="/">New document</a></li>
-                <li><a href="/upload">Upload</a></li>
-                <li><a href="/help">Help</a></li>
+                <li><a href="/"><i class="glyphicon glyphicon-plus"></i> New document</a></li>
+                <li <% if (url == '/upload') { %>class="active"<% } %>><a href="/upload"><i class="glyphicon glyphicon-upload"></i> Upload</a></li>
+                <li <% if (url == '/help') { %>class="active"<% } %>><a href="/help"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
             </ul>
         </div>
     </div>
