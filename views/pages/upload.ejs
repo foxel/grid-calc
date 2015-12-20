@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Help</title>
+    <title>Upload</title>
     <!-- Bootstrap core CSS -->
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <% include ../includes/navbar.ejs %>
 <div class="container">
-    Help info
+    <form class="form-inline" action="/upload" enctype="multipart/form-data" method="post">
+        <input class="form-control" type="file" name="upload"/>
+        <button class="btn btn-primary" type="submit">Send</button>
+    </form>
 </div>
 </body>
 </html>
