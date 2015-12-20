@@ -129,7 +129,7 @@ cell
       $$ = yy.helper.cellValue($1);
     }
     | CELL ':' CELL {
-      $$ = yy.helper.cellRange($0);
+      $$ = yy.helper.cellRange($1 + ':' + $3);
     }
 ;
 
