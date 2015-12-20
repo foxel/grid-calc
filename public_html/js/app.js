@@ -59,17 +59,20 @@ App.prototype = {
             modal.find('[name="value"]').focus();
         });
 
-        modal.find('.btn-primary').click(_.bind(function() {
+        var onSave = _.bind(function () {
             cell.value = this.parseValueInput(modal.find('input[name="value"]').val());
             sheet.cells[col] || (sheet.cells[col] = {});
             sheet.cells[col][row] = cell;
-            this.sendUpdate(sheetId, col, row, cell).then(function() {
+            this.sendUpdate(sheetId, col, row, cell).then(function () {
                 modal.modal('hide');
-            }, function(e) {
+            }, function (e) {
                 modal.find('.alert').text(e).show();
                 console.log(e);
             });
-        }, this));
+        }, this);
+
+        modal.find('.btn-primary').click(onSave);
+        modal.find('form').submit(onSave);
     },
 
     sendUpdate: function(sheetId, col, row, cell) {
