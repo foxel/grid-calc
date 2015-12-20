@@ -8,8 +8,12 @@
 <!-- Tab panes -->
 <div class="tab-content"><% _.each(sheets, function(sheet, sheetId) { %>
     <div role="tabpanel" class="tab-pane <% if (sheetId == active) { %>active<% } %>" id="sheet<%= sheetId %>">
-        <% var maxRowId = Math.max.apply(Math, _.map(sheet.cells, function (cells) { return Math.max.apply(Math, _.keys(cells))}));
-            var maxColumnId = Math.max.apply(Math, _.map(sheet.cells, function(_val, col) { return app.columnToIndex(col)}));
+        <% var maxRowId = sheet.cells.length
+                ? Math.max.apply(Math, _.map(sheet.cells, function (cells) { return Math.max.apply(Math, _.keys(cells))}))
+                : 10;
+            var maxColumnId = sheet.cells.length
+                ? Math.max.apply(Math, _.map(sheet.cells, function(_val, col) { return app.columnToIndex(col)}))
+                : 10;
         %>
 
         <table class="table table-bordered table-condensed" data-sheet="<%=sheetId%>">
