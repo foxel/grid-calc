@@ -4,9 +4,13 @@ var App = function($container, documentId) {
 
     this.$el = $container;
     this.docId = documentId;
+    this.init();
 };
 
 App.prototype = {
+    init: function() {
+        this.$el.delegate('td.data-cell', 'dblclick', _.bind(this.onCellDblClick, this));
+    },
     run: function() {
         console.log(this);
         $.when(
@@ -29,15 +33,15 @@ App.prototype = {
             app: this
         }));
 
-        this.$el.delegate('td.data-cell', 'dblclick', _.bind(function(e) {
-            e.preventDefault();
-            var $el = $(e.currentTarget),
-                col = $el.data('col'),
-                row = $el.data('row'),
-                sheetId = $el.closest('table').data('sheet');
-            this.openEditor(sheetId, col, row);
-            return false;
-        }, this));
+    },
+    onCellDblClick: function (e) {
+        e.preventDefault();
+        var $el = $(e.currentTarget),
+            col = $el.data('col'),
+            row = $el.data('row'),
+            sheetId = $el.closest('table').data('sheet');
+        this.openEditor(sheetId, col, row);
+        return false;
     },
     openEditor: function(sheetId, col, row) {
         var sheet = this.sheets[sheetId],
@@ -50,14 +54,28 @@ App.prototype = {
         })).modal();
 
         modal.find('.btn-primary').click(_.bind(function() {
-            cell.value = modal.find('input[name="value"]').val();
+            cell.value = this.parseValueInput(modal.find('input[name="value"]').val());
             sheet.cells[col] || (sheet.cells[col] = {});
             sheet.cells[col][row] = cell;
-            this.sendUpdate()
-        }, this))
+            this.sendUpdate(sheetId, col, row, cell).then(function() {
+                modal.modal('hide');
+            }, function(e) {
+                modal.find('.alert').text(e).show();
+                console.log(e);
+            });
+        }, this));
     },
 
-
+    sendUpdate: function(sheetId, col, row, cell) {
+        return $.post('/update/'+this.docId+'/'+sheetId+'/'+col+row, {
+            value: cell.value
+        }).then(_.bind(function(data) {
+            this.sheets = data;
+            this.render();
+        }, this), function (response) {
+            return response.responseText;
+        });
+    },
     loadResource: function(url) {
         return $.get(url).then(function(data) {
             return data;
@@ -110,6 +128,13 @@ App.prototype = {
             return String(value.substr(1));
         } else {
             return isNaN(value) ? '' : parseFloat(value);
+        }
+    },
+    parseValueInput: function (value) {
+        if (value[0] == '=') {
+            return value;
+        } else {
+            return isNaN(value) ? '\''+value : parseFloat(value);
         }
     }
 };
