@@ -1,5 +1,5 @@
 <div class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -8,8 +8,13 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger" role="alert" style="display: none;"></div>
-                <form class="form-inline">
-                    <input class="form-control" name="value" value="<%-app.encodeValue(cell.value)%>"/>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="value_input" class="col-sm-2 control-label">Value</label>
+                        <div class="col-sm-10">
+                            <input id="value_input" class="form-control" name="value" value="<%-app.encodeValue(cell.value)%>"/>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

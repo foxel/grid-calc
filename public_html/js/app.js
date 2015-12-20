@@ -33,6 +33,7 @@ App.prototype = {
             app: this
         }));
 
+        this.$el.find('[data-toggle="tooltip"]').tooltip();
     },
     onCellDblClick: function (e) {
         e.preventDefault();
@@ -48,10 +49,15 @@ App.prototype = {
             cell = (sheet.cells[col] && sheet.cells[col][row])
             ? sheet.cells[col][row]
             : {value: '\'', computed: ''};
+
         var modal = $(this.modalTemplate({
             cell: cell,
             app: this
         })).modal();
+
+        modal.on('shown.bs.modal', function () {
+            modal.find('[name="value"]').focus();
+        });
 
         modal.find('.btn-primary').click(_.bind(function() {
             cell.value = this.parseValueInput(modal.find('input[name="value"]').val());

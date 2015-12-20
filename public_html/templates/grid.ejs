@@ -24,10 +24,17 @@
             <tr>
                 <td><%= row%></td>
             <% for (var colIdx = 1; colIdx <= maxColumnId; colIdx++) {
-                var col = app.indexToColumn(colIdx); %>
-                <td class="data-cell" data-row="<%= row%>" data-col="<%= col%>"><%= (sheet.cells[col] && sheet.cells[col][row])
-                            ? app.encodeDisplayed(sheet.cells[col][row].computed)
-                            : ''%></td>
+                var col = app.indexToColumn(colIdx);
+                var cell = (sheet.cells[col] && sheet.cells[col][row]) ? sheet.cells[col][row] : null,
+                    computed = cell ? app.encodeDisplayed(cell.computed) : '',
+                    hint = cell ? app.encodeValue(cell.value) : '';
+
+            %>
+                <td class="data-cell"
+                    data-row="<%= row%>" data-col="<%= col%>"
+                    data-toggle="tooltip" title="<%= hint %>" data-container="#sheet<%= sheetId %>">
+                    <%= computed %>
+                </td>
             <% } %>
             </tr>
         <% } %>
