@@ -19,6 +19,7 @@ RUN npm install
 
 COPY lib/ /usr/src/app/lib/
 COPY public_html/ /usr/src/app/public_html/
+COPY views/ /usr/src/app/views/
 COPY server.js /usr/src/app/
 
 EXPOSE 8080

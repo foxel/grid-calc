@@ -4,8 +4,13 @@ var app = require('./lib/app');
 
 var server = express();
 server.use(busboy());
+server.use(express.static('public_html'));
+
+// set the view engine to ejs
+server.set('view engine', 'ejs');
 
 server.get('/help', function (req, res) {
+    res.render('pages/help');
     res.sendFile('./public_html/help.html', {root: '.'});
 });
 
