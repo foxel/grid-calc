@@ -9,7 +9,7 @@
 <body>
 <% include ../includes/navbar.ejs %>
 <div class="container">
-    <form class="form-inline" action="/upload" enctype="multipart/form-data" method="post">
+    <form class="form-inline" action="/upload?redirect" enctype="multipart/form-data" method="post">
         <input class="form-control" type="file" name="upload"/>
         <button class="btn btn-primary" type="submit">Send</button>
     </form>
